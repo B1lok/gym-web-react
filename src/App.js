@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import LoginForm from "./components/LoginForm";
 import LoginTable from "./components/LoginTable";
 
@@ -8,7 +8,7 @@ function App() {
     const [users, setUsers] = useState([])
 
     const handleFormSubmit = (user) => {
-        setUsers((prevUsers) => [...prevUsers, { ...user, id: userId }])
+        setUsers((prevUsers) => [...prevUsers, {...user, id: userId}])
         setUserId(tempId => tempId + 1)
         console.log(users)
     }
@@ -16,6 +16,7 @@ function App() {
     const handleDeleteSelected = (idArray) => {
         setUsers(users => users.filter(user => !idArray.includes(user.id)))
     }
+
     const handleDuplicateSelected = (idArray) => {
         users.filter(user => idArray.includes(user.id))
             .map(user => {
@@ -35,16 +36,18 @@ function App() {
                 setUserId(tempId => tempId + 1)
             })
     }
-  return (
-    <div className="App">
-      <LoginForm onSubmit={handleFormSubmit}></LoginForm>
-        <LoginTable users={users}
-                    singleDelete={handleSingleDelete}
-                    singleDuplicate={handleSingleDuplicate}
-                    onClickDelete={handleDeleteSelected}
-                    onClickDuplicate={handleDuplicateSelected}></LoginTable>
-    </div>
-  );
+
+    return (
+        <div className="App h-100">
+            <LoginForm onSubmit={handleFormSubmit}></LoginForm>
+            <LoginTable users={users}
+                        singleDelete={handleSingleDelete}
+                        singleDuplicate={handleSingleDuplicate}
+                        onClickDelete={handleDeleteSelected}
+                        onClickDuplicate={handleDuplicateSelected}>
+            </LoginTable>
+        </div>
+    );
 }
 
 export default App;
