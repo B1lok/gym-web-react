@@ -118,7 +118,7 @@ const LoginForm = ({onSubmit}) => {
     const [submitError, setSubmitError] = useState(null)
 
     return (
-        <div className="container">
+        <div className="container h-100">
             <div className="row h-100 d-flex justify-content-center align-items-center">
                 <div className="col-12 col-md-8 col-lg-6 col-xl-5">
                     <form className="bg-dark p-3 p-sm-5 rounded-5">
