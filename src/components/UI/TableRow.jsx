@@ -5,7 +5,7 @@ import DuplicateSingleRowButton from "./DuplicateSingleRowButton";
 const TableRow = ({user, selectedRows, handleCheckboxChange, singleDelete, singleDuplicate}) => {
     return (
         <tr>
-            <td>
+            <td className="d-flex justify-content-start align-items-center">
                 <input
                     type="checkbox"
                     checked={selectedRows.includes(user.id)}

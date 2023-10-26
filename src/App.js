@@ -10,18 +10,24 @@ function App() {
     const handleFormSubmit = (user) => {
         setUsers((prevUsers) => [...prevUsers, { ...user, id: userId }])
         setUserId(tempId => tempId + 1)
-        console.log(users)
     }
 
     const handleDeleteSelected = (idArray) => {
         setUsers(users => users.filter(user => !idArray.includes(user.id)))
     }
     const handleDuplicateSelected = (idArray) => {
-        users.filter(user => idArray.includes(user.id))
+        let maxId = Math.max(...users.map(user => user.id));
+
+        const duplicatedUsers = users
+            .filter(user => idArray.includes(user.id))
             .map(user => {
-                setUsers((prevUsers) => [...prevUsers, {...user, id: userId}])
-                setUserId(tempId => tempId + 1)
-            })
+                const newId = maxId + 1;
+                maxId += 1;
+                return { ...user, id: newId };
+            });
+
+        setUsers((prevUsers) => [...prevUsers, ...duplicatedUsers]);
+        setUserId(tempId => maxId + 1);
     }
 
     const handleSingleDelete = (id) => {

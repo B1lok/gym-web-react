@@ -1,17 +1,29 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import DeleteSelectedButton from "./UI/DeleteSelectedButton";
 import DuplicateSelectedButton from "./UI/DuplicateSelectedButton";
 import TableRow from "./UI/TableRow";
+import SelectAllButton from "./UI/SelectAllButton";
 
 const LoginTable = ({users, onClickDelete, onClickDuplicate, singleDuplicate, singleDelete}) => {
 
-    const columnNames = ["Actions:", "Name:", "Surname:", "Father's name:", "Email:", "Password:", "Date of birth:", "Group:", "Phone number:", "Gender:"];
-
-    const columns = columnNames.map((column, index) => (
-        <th key={index}>{column}</th>
-    ))
-
+    const columnNames = ["All:", "Name:", "Surname:", "Father's name:", "Email:", "Password:", "Date of birth:", "Group:", "Phone number:", "Gender:"];
     const [selectedRows, setSelectedRows] = useState([])
+    const [selectAllChecked, setSelectAll] = useState(false)
+
+    useEffect(() => {
+        setSelectAll(selectedRows.length === users.length);
+    }, [selectedRows, users]);
+
+    const handleSelectAllCheckboxChange = () =>{
+        if (selectAllChecked) {
+            setSelectAll(false)
+            setSelectedRows([])
+        } else {
+            setSelectAll(true)
+            setSelectedRows(users.map(user => user.id))
+        }
+    }
+
     const handleCheckboxChange = (id) => {
         if (selectedRows.includes(id)) {
             setSelectedRows(selectedRows.filter((item) => item !== id));
@@ -20,6 +32,9 @@ const LoginTable = ({users, onClickDelete, onClickDuplicate, singleDuplicate, si
         }
     };
 
+    const columns = columnNames.map((column, index) => (
+        column === "All:" ? <SelectAllButton key={index} onChange={handleSelectAllCheckboxChange} checked={selectAllChecked} /> : <th key={index}>{column}</th>
+    ))
     const clearSelectedRows = () => setSelectedRows([])
 
     return (
