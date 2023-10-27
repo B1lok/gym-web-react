@@ -8,10 +8,10 @@ const SelectInput = ({onChange, options, label, error}) => {
                 className="form-select"
                 id={label.toLowerCase()}
                 name={label.toLowerCase()}
-                required
-                onChange={onChange}
+                required={true}
+                onChange={event => onChange(event.target.value)}
             >
-                <option value="">Select {label}</option>
+                <option value="" >Select {label}</option>
                 {options.map((option, index) => (
                     <option key={index} value={option.value}>{option.label}</option>
                 ))}

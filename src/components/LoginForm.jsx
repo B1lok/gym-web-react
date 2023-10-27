@@ -100,10 +100,11 @@ const LoginForm = ({onSubmit}) => {
     }
 
     const handleGroupChange = (group) => {
-        if (group === null) {
+        if (group === null || group === "") {
             setGroupError("Choose group")
         } else {
             setUser({...user, group})
+            setGroupError(null)
         }
     }
 
