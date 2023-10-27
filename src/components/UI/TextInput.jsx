@@ -1,9 +1,9 @@
 import React from 'react';
 
-const TextInput = ({onChange, id, htmlFor, placeholder, children, error}) => {
+const TextInput = ({onChange, id, htmlFor, placeholder, children, error, value}) => {
     return (
         <>
-            <input className="form-control" id={id} placeholder={placeholder} onChange={e => onChange(e.target.value)} type="text" required/>
+            <input className="form-control" id={id} value={value} placeholder={placeholder} onChange={e => onChange(e.target.value)} type="text" required/>
             <label htmlFor={htmlFor}>{children}</label>
             {error && <span className="text-danger">{error}</span>}
         </>

@@ -22,21 +22,45 @@ const LoginForm = ({onSubmit}) => {
         group: null
     })
 
+    const resetUser = () => {
+        setUser({
+            name: null,
+            surname: null,
+            fathersName: null,
+            gender: null,
+            dateOfBirth: '',
+            email: null,
+            password: null,
+            phoneNumber: null,
+            group: null
+        });
+    };
+
+    const resetInputFields = () => {
+        setEmailValue('');
+        setPasswordValue('');
+        setNameValue('');
+        setSurnameValue('');
+        setFathersNameValue('');
+        setGenderValue(null);
+        setDateValue('');
+        setGroupValue('');
+        setPhoneNumberValue('');
+    };
+
     const handleSubmitButton = () => {
         if (Object.values(user).every(value => value !== null)) {
             onSubmit(user)
             setSubmitError(null)
+            resetUser()
+            resetInputFields()
         } else {
             setSubmitError("Invalid submit")
-            validate();
         }
     }
 
-    const validate = () => {
-
-    }
-
     const handleEmailChange = (email) => {
+        setEmailValue(email)
         if (/^[a-zA-Z0-9_.-]+@[a-z0-9-]+\.[a-z]{1,4}$/.test(email)) {
             setEmailError(null)
             setUser({...user, email})
@@ -46,6 +70,7 @@ const LoginForm = ({onSubmit}) => {
     }
 
     const handlePasswordChange = (password) => {
+        setPasswordValue(password)
         if (!/^.{8,}$/.test(password)) {
             setPasswordError('Must contain at least 8 symbols');
         } else if (!/^(?=.*[a-z])/.test(password)) {
@@ -61,6 +86,7 @@ const LoginForm = ({onSubmit}) => {
     }
 
     const handleNameChange = (name) => {
+        setNameValue(name)
         if (isTextInputCorrect(name)) {
             setNameError(null)
             setUser({...user, name})
@@ -68,6 +94,7 @@ const LoginForm = ({onSubmit}) => {
     }
 
     const handleSurnameChange = (surname) => {
+        setSurnameValue(surname)
         if (isTextInputCorrect(surname)) {
             setSurnameError(null)
             setUser({...user, surname})
@@ -75,6 +102,7 @@ const LoginForm = ({onSubmit}) => {
     }
 
     const handleFathersNameChange = (fathersName) => {
+        setFathersNameValue(fathersName)
         if (isTextInputCorrect(fathersName)) {
             setFathersNameError(null)
             setUser({...user, fathersName})
@@ -82,6 +110,7 @@ const LoginForm = ({onSubmit}) => {
     }
 
     const handleGenderChange = (gender) => {
+        setGenderValue(gender)
         if (gender === null) {
             setGenderError("Choose gender")
         } else {
@@ -90,6 +119,7 @@ const LoginForm = ({onSubmit}) => {
     }
 
     const handleDateChange = (date) => {
+        setDateValue(date)
         const dateOfBirth = new Date(date)
         if (isNaN(dateOfBirth.getTime()) || dateOfBirth.getFullYear() > today.getFullYear() || dateOfBirth.getFullYear() < today.getFullYear() - 150) {
             setDateError("Invalid date")
@@ -100,7 +130,9 @@ const LoginForm = ({onSubmit}) => {
     }
 
     const handleGroupChange = (group) => {
+        setGroupValue(group)
         if (group === null || group === "") {
+            setUser({...user, group: null})
             setGroupError("Choose group")
         } else {
             setUser({...user, group})
@@ -109,6 +141,7 @@ const LoginForm = ({onSubmit}) => {
     }
 
     const handlePhoneNumberChange = (phoneNumber) => {
+        setPhoneNumberValue(phoneNumber)
         if (phoneNumber.includes('_')) {
             setPhoneNumberError("Invalid phone number")
         } else {
@@ -142,6 +175,16 @@ const LoginForm = ({onSubmit}) => {
     const [phoneNumberError, setPhoneNumberError] = useState(null)
     const [submitError, setSubmitError] = useState(null)
 
+    const [emailValue, setEmailValue] = useState('')
+    const [passwordValue, setPasswordValue] = useState('')
+    const [nameValue, setNameValue] = useState('')
+    const [surnameValue, setSurnameValue] = useState('')
+    const [fathersNameValue, setFathersNameValue] = useState('')
+    const [genderValue, setGenderValue] = useState(null)
+    const [dateValue, setDateValue] = useState('')
+    const [groupValue, setGroupValue] = useState('')
+    const [phoneNumberValue, setPhoneNumberValue] = useState('')
+
     return (
         <div className="container h-100">
             <div className="row h-100 d-flex justify-content-center align-items-center">
@@ -151,14 +194,14 @@ const LoginForm = ({onSubmit}) => {
                         <div className="row">
                             <div className="col-12 col-sm-6">
                                 <div className="form-floating mb-3">
-                                    <EmailInput onChange={handleEmailChange} error={emailError}></EmailInput>
+                                    <EmailInput onChange={handleEmailChange} value={emailValue} error={emailError}></EmailInput>
                                 </div>
                             </div>
                             <div className="col-12 col-sm-6">
                                 <div className="form-floating mb-3">
                                     <PasswordInput
                                         onChange={handlePasswordChange}
-                                        error={passwordError}>
+                                        error={passwordError} value={passwordValue}>
                                     </PasswordInput>
                                 </div>
                             </div>
@@ -169,7 +212,7 @@ const LoginForm = ({onSubmit}) => {
                                         placeholder="Name"
                                         htmlFor="name"
                                         onChange={handleNameChange}
-                                        error={nameError}>
+                                        error={nameError} value={nameValue}>
                                         Name
                                     </TextInput>
                                 </div>
@@ -181,7 +224,7 @@ const LoginForm = ({onSubmit}) => {
                                         placeholder="Surname"
                                         htmlFor="surname"
                                         onChange={handleSurnameChange}
-                                        error={surnameError}>
+                                        error={surnameError} value={surnameValue}>
                                         Surname
                                     </TextInput>
                                 </div>
@@ -193,7 +236,7 @@ const LoginForm = ({onSubmit}) => {
                                         placeholder="Father's name"
                                         htmlFor="father"
                                         onChange={handleFathersNameChange}
-                                        error={fathersNameError}>
+                                        error={fathersNameError} value={fathersNameValue}>
                                         Father's name
                                     </TextInput>
                                 </div>
@@ -203,7 +246,7 @@ const LoginForm = ({onSubmit}) => {
                                     name="gender"
                                     options={radioOptions}
                                     onChange={handleGenderChange}
-                                    error={genderError}>
+                                    error={genderError} value={genderValue}>
                                 </RadioInput>
                             </div>
                             <div className="col-6 mb-3">
@@ -212,7 +255,7 @@ const LoginForm = ({onSubmit}) => {
                                     placeholder="Date"
                                     max={new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString().split('T')[0]}
                                     onChange={handleDateChange}
-                                    error={dateError}>
+                                    error={dateError} value={dateValue}>
                                 </DateInput>
                             </div>
                             <div className="col-6 mb-3">
@@ -220,13 +263,13 @@ const LoginForm = ({onSubmit}) => {
                                     label="Group"
                                     options={selectOptions}
                                     onChange={handleGroupChange}
-                                    error={groupError}>
+                                    error={groupError} value={groupValue}>
                                 </SelectInput>
                             </div>
                             <div className="col-12 mb-3">
                                 <PhoneNumberInput
                                     onChange={handlePhoneNumberChange}
-                                    error={phoneNumberError}>
+                                    error={phoneNumberError} value={phoneNumberValue}>
                                 </PhoneNumberInput>
                             </div>
                         </div>

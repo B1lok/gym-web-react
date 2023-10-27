@@ -1,6 +1,6 @@
 import React from 'react';
 
-const RadioInput = ({onChange, name, options, error}) => {
+const RadioInput = ({onChange, name, options, error, value}) => {
     return (
         <>
             <div className="btn-group w-100" role="group">
@@ -8,7 +8,7 @@ const RadioInput = ({onChange, name, options, error}) => {
                     <React.Fragment key={option.value}>
                         <input
                             autoComplete="off" className="btn-check" id={option.id} name={name} required type="radio"
-                            value={option.value} onChange={() => onChange(option.value)}
+                            value={option.value} onChange={() => onChange(option.value)} checked={value === option.value}
                         />
                         <label className="btn btn-outline-light" htmlFor={option.id}>
                             {option.label}

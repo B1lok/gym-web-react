@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SelectInput = ({onChange, options, label, error}) => {
+const SelectInput = ({onChange, options, label, error, value}) => {
     return (
         <>
             <select
@@ -8,7 +8,7 @@ const SelectInput = ({onChange, options, label, error}) => {
                 className="form-select"
                 id={label.toLowerCase()}
                 name={label.toLowerCase()}
-                required={true}
+                required={true} value={value}
                 onChange={event => onChange(event.target.value)}
             >
                 <option value="" >Select {label}</option>
