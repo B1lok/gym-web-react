@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DateInput = ({onChange, label, placeholder, max, error, value}) => {
+const DateInput = ({onChange, label, value, placeholder, max, error}) => {
     return (
         <>
             <input aria-label={label} className="form-control" onChange={e => onChange(e.target.value)}

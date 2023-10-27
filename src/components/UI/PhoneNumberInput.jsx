@@ -1,7 +1,7 @@
 import React from 'react';
 import {InputMask} from 'primereact/inputmask';
 
-const PhoneNumberInput = ({onChange, error, value}) => {
+const PhoneNumberInput = ({onChange, value, error}) => {
     return (
         <>
             <InputMask

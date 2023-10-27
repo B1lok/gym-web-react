@@ -10,7 +10,7 @@ import SubmitButton from "./UI/SubmitButton";
 
 const LoginForm = ({onSubmit}) => {
     const today = new Date()
-    const [user, setUser] = useState({
+    const initialUser = {
         name: null,
         surname: null,
         fathersName: null,
@@ -20,21 +20,8 @@ const LoginForm = ({onSubmit}) => {
         password: null,
         phoneNumber: null,
         group: null
-    })
-
-    const resetUser = () => {
-        setUser({
-            name: null,
-            surname: null,
-            fathersName: null,
-            gender: null,
-            dateOfBirth: '',
-            email: null,
-            password: null,
-            phoneNumber: null,
-            group: null
-        });
-    };
+    }
+    const [user, setUser] = useState(initialUser)
 
     const resetInputFields = () => {
         setEmailValue('');
@@ -42,17 +29,17 @@ const LoginForm = ({onSubmit}) => {
         setNameValue('');
         setSurnameValue('');
         setFathersNameValue('');
-        setGenderValue(null);
+        setGenderValue('');
         setDateValue('');
         setGroupValue('');
         setPhoneNumberValue('');
     };
 
     const handleSubmitButton = () => {
-        if (Object.values(user).every(value => value !== null)) {
+        if (Object.values(user).every(value => value !== null && value !== '')) {
             onSubmit(user)
             setSubmitError(null)
-            resetUser()
+            setUser(initialUser)
             resetInputFields()
         } else {
             setSubmitError("Invalid submit")
@@ -175,15 +162,15 @@ const LoginForm = ({onSubmit}) => {
     const [phoneNumberError, setPhoneNumberError] = useState(null)
     const [submitError, setSubmitError] = useState(null)
 
-    const [emailValue, setEmailValue] = useState('')
-    const [passwordValue, setPasswordValue] = useState('')
-    const [nameValue, setNameValue] = useState('')
-    const [surnameValue, setSurnameValue] = useState('')
-    const [fathersNameValue, setFathersNameValue] = useState('')
+    const [emailValue, setEmailValue] = useState(null)
+    const [passwordValue, setPasswordValue] = useState(null)
+    const [nameValue, setNameValue] = useState(null)
+    const [surnameValue, setSurnameValue] = useState(null)
+    const [fathersNameValue, setFathersNameValue] = useState(null)
     const [genderValue, setGenderValue] = useState(null)
-    const [dateValue, setDateValue] = useState('')
-    const [groupValue, setGroupValue] = useState('')
-    const [phoneNumberValue, setPhoneNumberValue] = useState('')
+    const [dateValue, setDateValue] = useState(null)
+    const [groupValue, setGroupValue] = useState(null)
+    const [phoneNumberValue, setPhoneNumberValue] = useState(null)
 
     return (
         <div className="container h-100">
@@ -194,7 +181,8 @@ const LoginForm = ({onSubmit}) => {
                         <div className="row">
                             <div className="col-12 col-sm-6">
                                 <div className="form-floating mb-3">
-                                    <EmailInput onChange={handleEmailChange} value={emailValue} error={emailError}></EmailInput>
+                                    <EmailInput onChange={handleEmailChange} value={emailValue}
+                                                error={emailError}></EmailInput>
                                 </div>
                             </div>
                             <div className="col-12 col-sm-6">

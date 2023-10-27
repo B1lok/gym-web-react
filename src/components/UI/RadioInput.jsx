@@ -1,6 +1,6 @@
 import React from 'react';
 
-const RadioInput = ({onChange, name, options, error, value}) => {
+const RadioInput = ({onChange, name, value, options, error}) => {
     return (
         <>
             <div className="btn-group w-100" role="group">

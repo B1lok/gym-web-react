@@ -1,6 +1,6 @@
 import React from 'react';
 
-const EmailInput = ({onChange, error, value}) => {
+const EmailInput = ({onChange, value, error}) => {
     return (
         <>
             <input className="form-control" value={value} onChange={e => onChange(e.target.value)} id="email"

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PasswordInput = ({onChange, error, value}) => {
+const PasswordInput = ({onChange, value, error}) => {
     return (
         <>
             <input className="form-control" id="password" placeholder="Password" required

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SelectInput = ({onChange, options, label, error, value}) => {
+const SelectInput = ({onChange, value, options, label, error}) => {
     return (
         <>
             <select
