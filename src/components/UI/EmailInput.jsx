@@ -1,11 +1,12 @@
 import React from 'react';
 
-const EmailInput = ({error, onChange}) => {
+const EmailInput = ({onChange, error}) => {
     return (
         <>
-            <input className="form-control" onChange={e => onChange(e.target.value)} id="email" placeholder="name@example.com" type="email"/>
+            <input className="form-control" onChange={e => onChange(e.target.value)} id="email"
+                   placeholder="name@example.com" type="email"/>
             <label htmlFor="email">Email</label>
-            {error && <span className="text-danger" id="emailError">{error}</span>}
+            {error && <span className="text-danger">{error}</span>}
         </>
     );
 };

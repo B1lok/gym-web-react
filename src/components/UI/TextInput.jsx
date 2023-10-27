@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TextInput = ({onChange, id, error, htmlFor, placeholder, children}) => {
+const TextInput = ({onChange, id, htmlFor, placeholder, children, error}) => {
     return (
         <>
             <input className="form-control" id={id} placeholder={placeholder} onChange={e => onChange(e.target.value)} type="text" required/>

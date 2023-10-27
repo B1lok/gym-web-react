@@ -6,7 +6,19 @@ import SelectAllButton from "./UI/SelectAllButton";
 
 const LoginTable = ({users, onClickDelete, onClickDuplicate, singleDuplicate, singleDelete}) => {
 
-    const columnNames = ["All:", "Name:", "Surname:", "Father's name:", "Email:", "Password:", "Date of birth:", "Group:", "Phone number:", "Gender:"];
+    const columnNames = [
+        "All:",
+        "Name:",
+        "Surname:",
+        "Father's name:",
+        "Gender:",
+        "Date of birth:",
+        "Email:",
+        "Password:",
+        "Phone number:",
+        "Group:"
+    ];
+
     const [selectedRows, setSelectedRows] = useState([])
     const [selectAllChecked, setSelectAll] = useState(false)
 
@@ -35,33 +47,37 @@ const LoginTable = ({users, onClickDelete, onClickDuplicate, singleDuplicate, si
     const columns = columnNames.map((column, index) => (
         column === "All:" ? <SelectAllButton key={index} onChange={handleSelectAllCheckboxChange} checked={selectAllChecked} /> : <th key={index}>{column}</th>
     ))
+
     const clearSelectedRows = () => setSelectedRows([])
 
     return (
         <div className="flex-grow-1 table-responsive tg-table">
             <h2 className="text-center">USERS</h2>
             <div className="d-flex justify-content-center m-3">
-                <DeleteSelectedButton onClick={onClickDelete} clearRows={clearSelectedRows} idArray={selectedRows}></DeleteSelectedButton>
-                <DuplicateSelectedButton onClick={onClickDuplicate} clearRows={clearSelectedRows} idArray={selectedRows}></DuplicateSelectedButton>
+                <DeleteSelectedButton onClick={onClickDelete} clearRows={clearSelectedRows} idArray={selectedRows}/>
+                <DuplicateSelectedButton onClick={onClickDuplicate} clearRows={clearSelectedRows}
+                                         idArray={selectedRows}/>
             </div>
             {users.length === 0 ? (<h2 className="text-center">Add new users!</h2>) : (
-            <table className="table table-striped">
-                <thead>
-                <tr>
-                    {columns}
-                </tr>
-                </thead>
-                <tbody id="table-body">
-                {users.map((user, index) => (
-                    <TableRow key={user.id}
-                              singleDelete={singleDelete}
-                              singleDuplicate={singleDuplicate}
-                              selectedRows={selectedRows}
-                              user={user}
-                              handleCheckboxChange={handleCheckboxChange}></TableRow>
-                ))}
-                </tbody>
-            </table>
+                <table className="table table-striped">
+                    <thead>
+                    <tr>
+                        {columns}
+                    </tr>
+                    </thead>
+                    <tbody id="table-body">
+                    {users.map((user) => (
+                        <TableRow
+                            key={user.id}
+                            singleDelete={singleDelete}
+                            singleDuplicate={singleDuplicate}
+                            selectedRows={selectedRows}
+                            user={user}
+                            handleCheckboxChange={handleCheckboxChange}>
+                        </TableRow>
+                    ))}
+                    </tbody>
+                </table>
             )}
         </div>
     );

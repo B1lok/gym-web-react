@@ -17,12 +17,12 @@ const TableRow = ({user, selectedRows, handleCheckboxChange, singleDelete, singl
             <td>{user.name}</td>
             <td>{user.surname}</td>
             <td>{user.fathersName}</td>
+            <td>{user.gender}</td>
+            <td>{user.dateOfBirth}</td>
             <td>{user.email}</td>
             <td>{user.password}</td>
-            <td>{user.dateOfBirth}</td>
-            <td>{user.group}</td>
             <td>{user.phoneNumber}</td>
-            <td>{user.gender}</td>
+            <td>{user.group}</td>
         </tr>
     );
 };
