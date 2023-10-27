@@ -23,7 +23,7 @@ const LoginForm = ({onSubmit}) => {
     })
 
     const handleSubmitButton = () => {
-        if (true) {
+        if (Object.values(user).every(value => value !== null)) {
             onSubmit(user)
             setSubmitError(null)
         } else {
